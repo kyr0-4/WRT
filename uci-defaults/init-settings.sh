@@ -17,6 +17,13 @@ uci set network.lan.hostname="`uci get system.@system[0].hostname`"
 echo $(uci get system.@system[0].hostname) > /proc/sys/kernel/hostname
 
 # ========================================================
+# sysctl
+# ========================================================
+echo "
+net.ipv4.tcp_congestion_control=bbr
+net.core.default_qdisc=cake" | tee -a /etc/sysctl.d/10-default.conf
+
+# ========================================================
 # LAN config
 # ========================================================
 uci del network.lan.ipaddr
